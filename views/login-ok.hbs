@@ -1,0 +1,75 @@
+<div class="container text-center my-3">
+  <div class="jumbotron" style="background-color: green;color: white;">
+    <h1>USER OK LOGIN!</h1>
+    <h2><i>Bienvenido {{usuario}}</i></h2>
+    <br />
+    <h3>Nombre: {{nombre}}</h3>
+    <h3>Apellido: {{apellido}}</h3>
+    <h3>Email: {{email}}</h3>
+    <button class="btn btn-danger my-5" onclick="logout()">LOGOUT</button>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nombre:</th>
+        <th>Precio:</th>
+        <th>Imagen:</th>
+      </tr>
+    </thead>
+    <tbody id="productsTable"></tbody>
+  </table>
+</div>
+
+<script>
+  function redireccionar(pagina) { location.href = pagina; } function logout() {
+  console.log('logout'); redireccionar('/logout') }
+
+  const $ = document.querySelector.bind(document)
+
+  const tableRows = products => {
+    return products.map (prod => 
+    `
+    <tr>
+        <td>${prod.title}</td>
+        <td>${prod.price} </td>
+        <td><img style="width: 5rem;" src="${prod.thumbnail}" /> </td>   
+ </tr>         
+    `)
+  }
+
+  fetch("/api/products")
+    .then(res => res.json())
+    .then(products => tableRows(products))
+    .then(html => $("#productsTable").innerHTML = html)
+    .catch(error => console.log(error))
+
+
+    /*let app = new Vue({
+      el: "#app",
+      data() {
+        return {
+          productos: [
+            {
+              id: null,
+              title: null,
+              price: null,
+              thumbnail: null,
+            },
+          ],
+        };
+      },
+      async mounted() {
+        const urlProducts = "/api/products";
+        try {
+          let responseProducts = await axios.get(urlProducts);
+          this.productos = await responseProducts.data;
+          console.log(this.productos)
+
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    });*/
+
+
+</script>
