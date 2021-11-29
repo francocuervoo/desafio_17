@@ -34,7 +34,7 @@
         <td>${prod.price} </td>
         <td><img style="width: 5rem;" src="${prod.thumbnail}" /> </td>   
  </tr>         
-    `)
+    `).join(' ');
   }
 
   fetch("/api/products")
@@ -42,34 +42,5 @@
     .then(products => tableRows(products))
     .then(html => $("#productsTable").innerHTML = html)
     .catch(error => console.log(error))
-
-
-    /*let app = new Vue({
-      el: "#app",
-      data() {
-        return {
-          productos: [
-            {
-              id: null,
-              title: null,
-              price: null,
-              thumbnail: null,
-            },
-          ],
-        };
-      },
-      async mounted() {
-        const urlProducts = "/api/products";
-        try {
-          let responseProducts = await axios.get(urlProducts);
-          this.productos = await responseProducts.data;
-          console.log(this.productos)
-
-        } catch (error) {
-          console.log(error);
-        }
-      },
-    });*/
-
 
 </script>
